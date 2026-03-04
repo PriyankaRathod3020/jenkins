@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    stages {
+        stage("hello") {
+            steps {
+                echo "hello world"
+            }
+        }
+        stage("date and time by using java") {
+            steps {
+                script {
+                    def date = new Date().format("YYYY-MM-dd HH:mm:SS")
+                    println date
+                }
+            }
+        }
+    }
+}
+
