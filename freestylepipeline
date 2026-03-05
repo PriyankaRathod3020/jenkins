@@ -1,3 +1,10 @@
+/*
+This is a freestyle pipeline. 
+1. printing hello world
+2. printing date
+3. cloning github repo and listing its content
+4. we can periodically scehdule the pipleine by using "Build periodically" under "Triggers"
+*/
 pipeline {
     agent any
     stages {
@@ -16,7 +23,7 @@ pipeline {
         }
         stage("github") {
             steps {
-                git url: "git_url", branch: "branch_name"
+                git url: "https://github.com/PriyankaRathod3020/ShellScript.git", branch: "basic"
             }
         }
         stage("list github content") {
