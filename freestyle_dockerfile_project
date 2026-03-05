@@ -1,0 +1,4 @@
+cd /var/lib/jenkins/workspace/py_app
+docker build -t python_app .
+docker run -d -p 5000:5000 --name "python_container" python_app:latest
+// need to add more details
