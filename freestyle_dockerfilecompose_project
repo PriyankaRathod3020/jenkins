@@ -1,0 +1,27 @@
+/* Below line of code is wriitten in Build Steps Section of freestyle project
+1. Copied the python docker app into jenkins path -  /var/lib/jenkins/workspace/py_app
+2. added jenkins user to docker group
+3. then build and run the container using below commands to run the container
+*/
+
+cd /var/lib/jenkins/workspace/py_app
+docker build -t python_app .
+docker run -d -p 5000:5000 --name "python_container" python_app:latest
+-----------------------------------------------------------------------------------------------------------------------------------------
+/*Below line of code is written in Build Steps of freestyle project
+1. Copied the docker-compose file of 2tierapplication into jenkins workspace path - /var/lib/jenkins/workspace/twotierhtmlapp
+2. added jenkins user to docker group
+3. first changing the directory to twotierhtmlapp folder so jenkins can access docker-compose file.
+4. then brought the docker compose file up, halted/ made the pipeline wait for 60 secs to check containers are up and running
+5. user cleanup() to kill and remove the container by using docker compose down
+6. user trap command to execute the cleanup() at the end of all the actions in the file.
+*/
+cleanup() {
+docker compose down -v
+}
+
+trap cleanup EXIT 
+
+cd /var/lib/jenkins/workspace/twotierhtmlapp
+docker compose up -d
+sleep 60
