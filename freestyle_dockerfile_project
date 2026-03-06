@@ -9,3 +9,5 @@ docker build -t python_app .
 docker run -d -p 5000:5000 --name "python_container" python_app:latest
 
 /* */
+cd /var/lib/jenkins/workspace/twotierhtmlapp
+docker-compose up -d
