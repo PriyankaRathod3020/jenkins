@@ -8,7 +8,8 @@ By Freestyle project
       1. Add repository URL and add private key in Credentials input box and select a specific branch
 
 ********** To execute the docker compose file using github integration *************
-Note: Not changing the directory before running the docker compose up commanmd as we pulling the code from github. the code will be pulled into jenkins workspace directory
+Note: Not changing the directory before running the docker compose up commanmd as we pulling the code from github. the code will be pulled into jenkins workspace directory.
+      The code is into the main repository, its not in any folder. we do not need to go inside any directiory for accessing the docker-compose file.
 1. Under build steps select execute shell. Add the below code to run the container
 cleanup() {
 docker compose down
