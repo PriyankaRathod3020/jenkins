@@ -1,0 +1,27 @@
+By Freestyle project
+******* How to integrate jenkins to github **************
+1. create SSH key
+2. add the public ssh key to github (Settings -> SSH and GPG keys -> add new SSH key)
+3. Jenkins 
+   a. under general select GitHub project and add repository url
+   b. Under Source code management select Git
+      1. Add repository URL and add private key in Credentials input box and select a specific branch
+
+********** To execute the docker compose file using github integration *************
+Note: Not changing the directory before running the docker compose up commanmd as we pulling the code from github. the code will be pulled into jenkins workspace directory
+1. Under build steps select execute shell. Add the below code to run the container
+cleanup() {
+docker compose down
+}
+
+trap cleanup EXIT
+
+docker compose up -d
+sleep 120
+
+***************** To run the pipeline when there is any activity on the github repo ****************
+By using the below integration if any changes happen in github repository the pipeline will be triggered.
+Note:- Webhook is created to send an acknowledgement to the app if something happens
+1. Add Github Integration Plugin
+2. Add a webhook in github [payload URL - jenkins_url/github-webhook/]. (Adding github-webhook in the URL as the achnowlegdement will be coming from github to jenkins, and jenkins should know from where the acknowledgement is coming).
+3. Under Trigger select "Github hook trigger for GITScm polling"
