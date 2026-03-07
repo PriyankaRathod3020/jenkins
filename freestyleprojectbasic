@@ -1,0 +1,14 @@
+/*
+1. Create a freestyle project
+2. under build step select "execute shell"
+3. write below code for 
+   a. printing "Hello World"
+   b. printing "date"
+   c. cloning a git repository and printing the folder/files present in it
+*/
+
+echo "Hello world"
+echo "$(date)"
+git clone https://github.com/PriyankaRathod3020/docker.git
+cd docker
+ls -l
