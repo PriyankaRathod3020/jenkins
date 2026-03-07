@@ -1,0 +1,42 @@
+/*
+1. Cloning a git repo
+2. validating it has cloned the repo
+3. changing directory using "dir" block so jenkins can get the dockerfile to build and image and then create a container. using "environment" block to assign a global variable and declare it 
+4. using "post" and "always" block for post actions.
+*/
+pipeline {
+    agent any
+    environment {
+        IMAGE_NAME="python_appl"
+        CONTAINER_NAME="python_container"
+    }
+    stages {
+        stage("clone github") {
+            steps {
+                git url:"git_repo.git", branch:"main"
+            }
+        }
+        stage("validating clone") {
+            steps {
+                sh "ls -r"
+            }
+        }
+        stage("build conatiner") {
+            steps {
+                
+                dir('python_docker_prj/python_app') {
+                    sh "docker build -t ${IMAGE_NAME} ."
+                    sh "docker run -d -p 5000:5000 --name ${CONTAINER_NAME} ${IMAGE_NAME}:latest"
+                    sh "sleep 10"
+                }
+    
+            }
+        }
+    }
+    post {
+           always {
+                sh "docker rm -f ${CONTAINER_NAME} || true"
+                sh "docker rmi ${IMAGE_NAME} || true"
+            }
+        }
+}
